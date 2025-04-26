@@ -22,10 +22,14 @@ También se debe calcular el porcentaje de estudiantes que aprobó el curso.
 
 package desafio1.Controlador;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import desafio1.Modelo.Curso;
 import desafio1.Modelo.Estudiante;
 import desafio1.Vista.VistaCurso;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -61,6 +65,8 @@ public class ControladorCurso {
                     //...
                 } else if (opcion == 6) {
                     //...
+                } else if (opcion == 7) {
+                    mostrarListaEstudiantes();
                 } else if (opcion == 0) {
                     vista.setEjecutando(false);
                 }
@@ -120,13 +126,54 @@ public class ControladorCurso {
 
         Curso curso1 = new Curso("Curso Universitario", listaEstudiantes);
         listaCurso.add(curso1);
+        guardarInfo(listaCurso);
     }
 
 
+    public void mostrarListaEstudiantes (){
+        ArrayList <Curso> cursoArrayList = new ArrayList<>();
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            cursoArrayList = mapper.readValue(new File("src/main/java/desafio1/assets/informacionGuardada.json"), new TypeReference<>(){});
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        for (Curso curso: cursoArrayList){
+            System.out.println("Los estudiantes ingresados son:");
+            if (!curso.getListaEstudiantes().isEmpty()){
+                for (Estudiante estudiante: curso.getListaEstudiantes()){
+                    System.out.println("Nombre: " + estudiante.getNombre());
+                    System.out.println("Apellido: " + estudiante.getApellido());
+                    System.out.println("Código: " + estudiante.getCodigo());
+                    System.out.println("Semestre: " + estudiante.getSemestre());
+                    System.out.println("Nota final: " + estudiante.getNotaFinal());
+                }
+            }
+        }
+    }
 
 
+    public void guardarInfo(ArrayList<Curso> listaCurso){
+        try{
+            System.out.println("Save info");
+            System.out.println(" ");
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(new File("src/main/java/desafio1/assets/informacionGuardada.json"), listaCurso);
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
-
+    public void updateList() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            listaCurso = mapper.readValue(new File("src/main/java/desafio1/assets/informacionGuardada.json"), new TypeReference<>(){});
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
 }

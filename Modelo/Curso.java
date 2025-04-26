@@ -12,6 +12,7 @@ public class Curso {
         this.curso1 = curso1;
         this.listaEstudiantes = listaEstudiantes;
     }
+    public Curso () {}
 
     //Getters y setters
     public String getCurso1() {

@@ -17,6 +17,8 @@ public class Estudiante {
         this.notaFinal = notaFinal;
     }
 
+    public Estudiante(){}
+
     //Getters y setters
     public String getNombre() {
         return nombre;

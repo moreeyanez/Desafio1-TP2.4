@@ -55,6 +55,8 @@ public class VistaCurso {
         System.out.println(mensajeConsola);
         mensajeConsola = " 6) Estudiantes aprobados";
         System.out.println(mensajeConsola);
+        mensajeConsola = " 7) Mostrar lista de estudiantes";
+        System.out.println(mensajeConsola);
 
         mensajeConsola = "Elija una opción del menú:";
         System.out.println(mensajeConsola);
